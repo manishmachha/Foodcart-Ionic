@@ -1,0 +1,21 @@
+.filter-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 10px 15px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+button.active {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.full-width {
+  width: 100%;
+  margin-top: 10px;
+}

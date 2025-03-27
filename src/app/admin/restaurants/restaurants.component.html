@@ -1,0 +1,81 @@
+<div class="container">
+ <div class="filter-buttons mt-3">
+  <!-- 🔍 Search -->
+  <button class="btn btn-primary" [ngClass]="{ 'active': showSearch }" (click)="toggleOption('search')">
+    <i class="bi bi-search"></i> 
+  </button>
+
+  <!-- 📌 Filter by Role -->
+  <button class="btn btn-primary" [ngClass]="{ 'active': showFilter }" (click)="toggleOption('filter')">
+    <i class="bi bi-funnel-fill"></i> 
+  </button>
+
+  <!-- 🔃 Sort -->
+  <button class="btn btn-primary" [ngClass]="{ 'active': showSort }" (click)="toggleOption('sort')">
+    <i class="bi bi-sort-alpha-down"></i> 
+  </button>
+
+  <!-- 🔃 Add -->
+  <button class="btn btn-primary" (click)="addRestaurant()">
+    <i class="fa-solid fa-utensils"></i>
+  </button>
+</div>
+
+<!-- 🔽 Toggleable Sections -->
+<div *ngIf="showSearch">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Search Users</mat-label>
+    <input matInput [(ngModel)]="searchTerm" (input)="applyFilters()" placeholder="Search by name, location, or phone" />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+
+<div *ngIf="showFilter">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Filter by Status</mat-label>
+    <mat-select [(ngModel)]="selectedStatus" (selectionChange)="applyFilters()">
+      <mat-option value="">All</mat-option>
+      <mat-option *ngFor="let status of statuses" [value]="status">{{ status }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div *ngIf="showSort">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Sort By</mat-label>
+    <mat-select [(ngModel)]="sortBy" (selectionChange)="applyFilters()">
+      <mat-option value="name">Name</mat-option>
+      <mat-option value="email">Location</mat-option>
+      <mat-option value="role">Phone</mat-option>
+      <mat-option value="id">ID</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+
+  <!-- 📋 User List -->
+  <mat-list role="list">
+  <mat-card class="user-card mb-3" appearance="raised" *ngFor="let restaurant of filteredRestaurants">
+    <mat-card-header>
+      <mat-card-title>
+        <h3>#{{ restaurant.id }} {{ restaurant.name }}</h3>
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="user-info">
+        <p><strong>Location:</strong> {{ restaurant.location }}</p>
+        <p><strong>Phone:</strong> {{ restaurant.phoneNumber }}</p>
+        <p><strong>Active:</strong> YES</p>
+      </div>
+    </mat-card-content>
+
+  <mat-card-actions class="user-actions d-flex justify-content-between">
+    <button class="btn btn-success flex-grow-1 mx-2"><i class="bi bi-check-circle-fill"></i></button>
+    <button class="btn btn-warning flex-grow-1 mx-2" (click)="editRestaurant(restaurant.id)"><i class="bi bi-pencil-fill"></i></button>
+    <button class="btn btn-danger flex-grow-1 mx-2" (click)="deleteRestaurant(restaurant.id)"><i class="bi bi-trash-fill"></i></button>
+  </mat-card-actions>
+
+  </mat-card>
+</mat-list>
+</div>

@@ -1,0 +1,94 @@
+<div class="container">
+  <!-- 🔹 Filter & Action Buttons -->
+  <div class="filter-buttons mt-3">
+    <!-- 🔍 Search -->
+    <button class="btn btn-primary" [ngClass]="{ 'active': showSearch }" (click)="toggleOption('search')">
+      <i class="bi bi-search"></i>
+    </button>
+
+    <!-- 📌 Filter by Active Status -->
+    <button class="btn btn-primary" [ngClass]="{ 'active': showFilter }" (click)="toggleOption('filter')">
+      <i class="bi bi-funnel-fill"></i>
+    </button>
+
+    <!-- 🔃 Sort -->
+    <button class="btn btn-primary" [ngClass]="{ 'active': showSort }" (click)="toggleOption('sort')">
+      <i class="bi bi-sort-alpha-down"></i>
+    </button>
+
+    <!-- ➕ Add Food Item -->
+    <button class="btn btn-primary" (click)="addFoodItem()">
+      <i class="fa-solid fa-utensils"></i>
+    </button>
+  </div>
+
+  <!-- 🔽 Toggleable Sections -->
+  <div *ngIf="showSearch">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Search Food Items</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (input)="applyFilters()" placeholder="Search by name, restaurant, or price" />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="showFilter">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Filter by Active Status</mat-label>
+      <mat-select [(ngModel)]="selectedStatus" (selectionChange)="applyFilters()">
+        <mat-option value="">All</mat-option>
+        <mat-option *ngFor="let status of statuses" [value]="status">
+          {{ status === 'true' ? 'Active' : 'Inactive' }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="showSort">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Sort By</mat-label>
+      <mat-select [(ngModel)]="sortBy" (selectionChange)="applyFilters()">
+        <mat-option value="name">Name</mat-option>
+        <mat-option value="price">Price</mat-option>
+        <mat-option value="restaurantName">Restaurant</mat-option>
+        <mat-option value="id">ID</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- 📋 Food Items List -->
+  <mat-list role="list">
+    <mat-card class="food-card mb-3" appearance="raised" *ngFor="let foodItem of filteredFoodItems">
+  <mat-card-header>
+    <mat-card-title>
+      <h3>#{{ foodItem.id }} {{ foodItem.name }}</h3>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="food-info">
+      <div>
+        <p><strong>Price:</strong> ${{ foodItem.price }}</p>
+        <p><strong>Restaurant:</strong> {{ foodItem.restaurantName }}</p>
+        <p><strong>Active:</strong> {{ foodItem.active }}</p>
+      </div>
+      <img [src]="foodItem.image" alt="{{ foodItem.name }}" class="food-image" />
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="food-actions d-flex justify-content-between">
+     <button 
+  class="btn flex-grow-1 mx-2" 
+  [ngClass]="foodItem.active ? 'btn-success' : 'btn-secondary'" (click)="updateFoodItem(foodItem.id)">
+  <i class="bi bi-check-circle-fill"></i>
+</button>
+    <button class="btn btn-warning flex-grow-1 mx-2" (click)="editFoodItem(foodItem.id)">
+      <i class="bi bi-pencil-fill"></i>
+    </button>
+    <button class="btn btn-danger flex-grow-1 mx-2" (click)="deleteFoodItem(foodItem.id)">
+      <i class="bi bi-trash-fill"></i>
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+  </mat-list>
+</div>

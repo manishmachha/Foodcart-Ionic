@@ -1,0 +1,54 @@
+<div
+  class="container d-flex flex-column align-items-center justify-content-center"
+>
+  <!-- Heading Section -->
+  <div class="text-center text-white mb-4">
+    <h1 class="fw-bold">Admin Dashboard</h1>
+    <h5>Manage Users, Food Items, Orders, and More</h5>
+  </div>
+
+  <!-- Grid Section -->
+  <mat-grid-list
+    [cols]="2"
+    rowHeight="1:1"
+    gutterSize="20px"
+    class="grid-wrapper"
+  >
+    <mat-grid-tile (click)="navigateToUsers()">
+      <div class="grid-item">
+        <i class="bi bi-people-fill"></i>
+        <div>Users</div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile (click)="navigateToFoodItems()">
+      <div class="grid-item">
+        <i class="fas fa-pizza-slice"></i>
+        <div>Food Items</div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile (click)="navigateToRestaurants()">
+      <div class="grid-item">
+        <i class="bi bi-bank2"></i>
+        <div>Restaurants</div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile (click)="navigateToAddresses()">
+      <div class="grid-item">
+        <i class="fas fa-map-marked"></i>
+        <div>Addresses</div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile (click)="navigateToBills()">
+      <div class="grid-item">
+        <i class="bi bi-receipt"></i>
+        <div>Bills</div>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile (click)="navigateToOrders()">
+      <div class="grid-item">
+        <i class="bi bi-cart-fill"></i>
+        <div>Orders</div>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

@@ -1,0 +1,61 @@
+.top {
+    height: 30vh;
+}
+.bottom {
+    height: 70vh;
+    border-radius: 50px 50px 0px 0px;
+    padding: 20px;
+}
+
+.signup-btn {
+    background-color: rgb(255, 92, 33);
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    outline: none;
+    border: none;
+
+}
+.signup-btn:hover {
+    background-color: rgb(255, 84, 21);
+}
+
+.signup-btn:disabled {
+    background-color: rgb(255, 144, 104);
+    cursor: not-allowed;
+    opacity: 0.6; /* Reduce opacity */
+}
+
+.input-field {
+    background-color: rgb(235, 235, 235);
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.toggle-password-btn {
+    border-radius: 10px;
+    background-color: rgb(235, 235, 235);
+    border: none;
+}
+
+.toggle-password-btn:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
+@media (max-width: 576px) {
+    .bottom {
+        padding: 15px;
+    }
+    .signup-btn {
+        padding: 12px;
+        font-size: 14px;
+    }
+    .input-field {
+        padding: 12px;
+    }
+}

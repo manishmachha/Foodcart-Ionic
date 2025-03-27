@@ -1,0 +1,57 @@
+<div class="container-fluid d-flex flex-column bg-dark">
+  <div class="top m-3 row bg-dark text-white d-flex justify-content-between align-items-center">
+    <div class="text-center flex-grow-1">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="flex-grow-1 text-center m-0">Update Item</h1>
+        <button class="btn btn-sm btn-outline-danger" [mat-dialog-close]="true">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <h6>Please enter the new details</h6>
+    </div>
+  </div>
+
+  <div class="bottom row d-flex align-items-center justify-content-center bg-light">
+    <div class="w-100" style="max-width: 1000px">
+      <form [formGroup]="itemUpdateForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3 px-3">
+          <label class="form-label">ITEM NAME</label>
+          <input type="text" class="input-field form-control" formControlName="name" />
+          <div class="text-danger" *ngIf="
+              itemUpdateForm.get('name')?.touched && itemUpdateForm.get('name')?.invalid
+            ">
+            Item name is required.
+          </div>
+        </div>
+
+        <div class="mb-3 px-3">
+          <label class="form-label">IMAGE</label>
+          <input type="file" class="input-field form-control" (change)="onFileChange($event)" formControlName="image" accept="image/png, image/jpeg, image/jpg"/>
+          <div class="text-danger" *ngIf="
+              itemUpdateForm.get('image')?.touched &&
+              itemUpdateForm.get('image')?.invalid
+            ">
+            Upload a valid image.
+          </div>
+        </div>
+
+        <div class="mb-3 px-3">
+          <label class="form-label">PRICE</label>
+          <input type="number" class="input-field form-control" formControlName="price" />
+          <div class="text-danger" *ngIf="
+              itemUpdateForm.get('price')?.touched &&
+              itemUpdateForm.get('price')?.invalid
+            ">
+            Enter a valid Price.
+          </div>
+        </div>       
+
+        <div class="mt-5 px-3">
+          <button type="submit" class="signup-btn w-100" [disabled]="itemUpdateForm.invalid">
+            Update
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

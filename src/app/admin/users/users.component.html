@@ -1,0 +1,125 @@
+<ion-content>
+  <!-- 🔄 Pull to Refresh -->
+  <ion-refresher (ionRefresh)="doRefresh($event)" slot="fixed">
+    <ion-refresher-content
+      pullingText="Pull down to refresh..."
+      refreshingSpinner="circles"
+      refreshingText="Refreshing..."
+    ></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="container">
+    <!-- 🎛️ Filter & Search Buttons -->
+    <div class="filter-buttons mt-3">
+      <!-- 🔍 Search -->
+      <button
+        class="btn btn-primary"
+        [ngClass]="{ active: showSearch }"
+        (click)="toggleOption('search')"
+      >
+        <i class="bi bi-search"></i>
+      </button>
+
+      <!-- 📌 Filter by Role -->
+      <button
+        class="btn btn-primary"
+        [ngClass]="{ active: showFilter }"
+        (click)="toggleOption('filter')"
+      >
+        <i class="bi bi-funnel-fill"></i>
+      </button>
+
+      <!-- 🔃 Sort -->
+      <button
+        class="btn btn-primary"
+        [ngClass]="{ active: showSort }"
+        (click)="toggleOption('sort')"
+      >
+        <i class="bi bi-sort-alpha-down"></i>
+      </button>
+
+      <!-- ➕ Add User -->
+      <button class="btn btn-primary" (click)="addUser()">
+        <i class="bi bi-person-plus-fill"></i>
+      </button>
+    </div>
+
+    <!-- 🔽 Toggleable Sections -->
+    <div *ngIf="showSearch">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Search Users</mat-label>
+        <input
+          matInput
+          [(ngModel)]="searchTerm"
+          (input)="applyFilters()"
+          placeholder="Search by name, email, or phone"
+        />
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="showFilter">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Filter by Role</mat-label>
+        <mat-select [(ngModel)]="selectedRole" (selectionChange)="applyFilters()">
+          <mat-option value="">All</mat-option>
+          <mat-option *ngFor="let role of roles" [value]="role">
+            {{ role }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="showSort">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Sort By</mat-label>
+        <mat-select [(ngModel)]="sortBy" (selectionChange)="applyFilters()">
+          <mat-option value="name">Name</mat-option>
+          <mat-option value="email">Email</mat-option>
+          <mat-option value="role">Role</mat-option>
+          <mat-option value="id">ID</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- 📋 User List -->
+    <mat-list role="list" *ngIf="filteredUsers.length > 0">
+      <mat-card class="user-card mb-3" appearance="raised" *ngFor="let user of filteredUsers">
+        <mat-card-header>
+          <mat-card-title>
+            <h3>#{{ user.id }} {{ user.name }}</h3>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <div class="user-info">
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Phone:</strong> {{ user.phoneNumber }}</p>
+            <p><strong>Role:</strong> {{ user.role }}</p>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions class="user-actions d-flex justify-content-between">
+          <button
+            class="btn flex-grow-1 mx-2"
+            [ngClass]="user.isActive ? 'btn-success' : 'btn-secondary'"
+            (click)="updateUser(user.id)"
+          >
+            <i class="bi bi-check-circle-fill"></i>
+          </button>
+          <button
+            class="btn btn-warning flex-grow-1 mx-2"
+            (click)="editUser(user.id)"
+          >
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+          <button
+            class="btn btn-danger flex-grow-1 mx-2"
+            (click)="deleteUser(user.id)"
+          >
+            <i class="bi bi-trash-fill"></i>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-list>
+  </div>
+</ion-content>

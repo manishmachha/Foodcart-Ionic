@@ -1,0 +1,40 @@
+.container {
+  background-color: orangered;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px; /* Add padding to prevent edge collisions */
+}
+
+.grid-wrapper {
+  max-width: 90vw; /* Prevent excessive stretching */
+  width: 100%;
+}
+
+mat-grid-tile {
+  background: rgb(255, 95, 37);
+  border-radius: 20px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: 0 0 10px 0 rgb(188, 49, 49);
+}
+
+/* New class to stack icon and text vertically */
+.grid-item {
+  display: flex;
+  flex-direction: column; /* Stack icon and text */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.grid-item i {
+  font-size: 30px; /* Increase icon size */
+  margin-bottom: 8px; /* Add space between icon and text */
+}

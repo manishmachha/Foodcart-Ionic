@@ -1,0 +1,55 @@
+<div class="container-fluid d-flex flex-column vh-100 bg-dark">
+  <div class="top row bg-dark text-white d-flex justify-content-center align-items-center">
+    <div class="text-center">
+      <h1>Login</h1>
+      <h6>Welcome back! Please log in</h6>
+    </div>
+  </div>
+
+  <div class="bottom row d-flex align-items-center justify-content-center bg-light">
+    <div class="w-100" style="max-width: 400px;">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3 px-3">
+          <label class="form-label">EMAIL</label>
+          <input type="email" class="input-field form-control" formControlName="email">
+          <div class="text-danger" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+            Enter a valid email.
+          </div>
+        </div>
+
+        <div class="mb-3 px-3">
+          <label class="form-label">PASSWORD</label>
+          <div class="input-group">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="input-field form-control"
+              formControlName="password"
+            />
+            <button
+              type="button"
+              class="btn btn-outline-secondary toggle-password-btn"
+              (click)="togglePasswordVisibility()"
+            >
+              <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+            </button>
+          </div>
+          <div class="text-danger" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+            Password is required.
+          </div>
+        </div>
+
+        <div class="mt-4 px-3 text-end">
+          <a href="#">Forgot Password?</a>
+        </div>
+
+        <div class="mt-5 px-3">
+          <button type="submit" class="login-btn w-100" [disabled]="loginForm.invalid">LOGIN</button>
+        </div>
+
+    </form>
+    <div class="mt-4 px-3 text-center">
+      Don't have an account? <a routerLink="/signup">Sign Up</a>
+    </div>
+    </div>
+  </div>
+</div>
